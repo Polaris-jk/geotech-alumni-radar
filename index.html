@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111418">
+<title>เรดาร์ศิษย์เก่าเทคโนโลยีธรณี</title>
+<meta name="description" content="แผนที่ศิษย์เก่าและนักศึกษาสาขาวิชาเทคโนโลยีธรณี มหาวิทยาลัยขอนแก่น ปักหมุดที่ทำงาน หาพี่ๆ สายเดียวกัน และดูว่าใครเปิดรับงานหรือฝึกงาน">
+<meta property="og:title" content="KKU Geotech Alumni Radar · เรดาร์ศิษย์เก่าเทคโนโลยีธรณี">
+<meta property="og:description" content="ปักหมุดที่ทำงานของคุณ ให้รุ่นน้องหาพี่ๆ สายเดียวกันเจอ">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/style.css?v=1">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s7-6.1 7-11.8a7 7 0 1 0-14 0c0 5.7 7 11.8 7 11.8z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.8" r="2.6" fill="currentColor"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></g></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 12l6.4-6.4"/><path d="M20.2 9.6A8.6 8.6 0 1 1 14.4 3.8"/><path d="M16.3 11.2a4.4 4.4 0 1 1-3.5-3.5"/></g><circle cx="12" cy="12" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></g></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 16.5l9 5 9-5" opacity=".55"/></g></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></g></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></g><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5a3.5 3.5 0 0 1-3.5 3.5"/><path d="M12 14v3M8.5 20.5h7M9.5 17h5v3.5h-5z"/></g></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-brief" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 12.5h18"/></g></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.5V16c1.5 1.6 3.4 2.4 5.5 2.4s4-.8 5.5-2.4v-4.5M21.5 9.5v5"/></g></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="hdr">
+  <a class="logo" href="#radar">
+    <svg class="logo-mark" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+      <circle cx="17" cy="17" r="15.5" fill="#1a1e24" stroke="#ef5f67" stroke-opacity=".55"/>
+      <circle cx="17" cy="17" r="10" fill="none" stroke="#ef5f67" stroke-opacity=".3"/>
+      <circle cx="17" cy="17" r="4.6" fill="none" stroke="#ef5f67" stroke-opacity=".55"/>
+      <path d="M17 17L28 9.5" stroke="#ef5f67" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="17" cy="17" r="2" fill="#ef5f67"/>
+      <circle cx="23.5" cy="11.5" r="1.7" fill="#e6e8eb"/>
+    </svg>
+    <span class="logo-t"><b>GEOTECH <em>RADAR</em></b><small data-i="hdr_sub">สาขาวิชาเทคโนโลยีธรณี มข.</small></span>
+  </a>
+  <div class="seg" role="group" aria-label="Language / ภาษา">
+    <button type="button" id="lang-th" aria-pressed="true">TH</button>
+    <button type="button" id="lang-en" aria-pressed="false">EN</button>
+  </div>
+  <div class="menu">
+    <button type="button" class="sqbtn" id="menu-btn" aria-expanded="false" aria-controls="menu-list" aria-label="เมนู" data-aria="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="menu-list" id="menu-list" hidden>
+      <a href="#radar" data-i="m_radar">เรดาร์</a>
+      <a href="#brief" data-i="m_brief">ภารกิจของเรดาร์</a>
+      <a href="#battle" data-i="m_battle">อันดับรุ่น (Batch Battle)</a>
+      <button type="button" id="menu-pin" data-i="m_pin">ปักหมุดพิกัดของคุณ</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="stage" id="radar" aria-label="แผนที่เรดาร์ศิษย์เก่า" data-aria="stage_a">
+  <div id="map-el"></div>
+  <div class="cardview" id="cards" hidden></div>
+
+  <div class="ov ov-top" id="ov-top">
+    <div class="titlebar">
+      <span class="beacon" aria-hidden="true"></span>
+      <div class="tt">
+        <p class="mc">// GEOTECH_KKU : MISSION_CONTROL //</p>
+        <h1>KKU GEOTECH ALUMNI RADAR</h1>
+      </div>
+      <span class="demo-tag demo-only" data-i="demo_tag">ข้อมูลสาธิต</span>
+    </div>
+    <div class="row">
+      <button type="button" class="hb" data-view="th" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><span data-i="v_th">ประเทศไทย</span></button>
+      <button type="button" class="hb" data-view="world" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><span data-i="v_world">รอบโลก</span></button>
+      <button type="button" class="hb" data-view="scan" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-radar"/></svg><span data-i="v_scan">ออโต้สแกน</span></button>
+    </div>
+    <div class="row">
+      <button type="button" class="hb" data-view="cards" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg><span data-i="v_cards">มุมมองการ์ด</span><span class="badge" id="n-shown">0</span></button>
+      <button type="button" class="hb" id="btn-filter" aria-expanded="false" aria-controls="fpanel"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg><span data-i="filter">ตัวกรอง</span><span class="badge" id="fbadge" hidden></span></button>
+      <button type="button" class="hb xs" id="fclear" hidden><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span data-i="clear">ล้าง</span></button>
+    </div>
+    <div class="scanhud" id="scan-hud" role="status" hidden><span class="sh-dot" aria-hidden="true"></span><span id="scan-txt"></span><button type="button" id="scan-stop" data-i="stop">หยุด</button></div>
+    <div class="netpill" id="netpill" role="status" hidden><span id="net-txt"></span><button type="button" id="net-retry" data-i="net_retry" hidden>ลองใหม่</button></div>
+  </div>
+
+  <div class="fpanel" id="fpanel" hidden>
+    <p class="kick">// SIGNAL_FILTER //</p>
+    <div class="ff"><label for="f-batch" data-i="f_batch">รุ่น</label><select id="f-batch"></select></div>
+    <div class="ff"><label for="f-career" data-i="f_career">สายงาน</label><select id="f-career"></select></div>
+    <div class="ff"><label for="f-q" data-i="f_q">ค้นหาชื่อเล่น</label><input type="search" id="f-q" autocomplete="off" maxlength="30"></div>
+    <div class="chips" role="group" id="chips" aria-label="ประเภทสัญญาณ" data-aria="chips_a">
+      <button type="button" class="chip" data-chip="all" aria-pressed="true"><span data-i="c_all">ทั้งหมด</span></button>
+      <button type="button" class="chip" data-chip="job" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-brief"/></svg><span data-i="c_job">รับสมัครงาน</span></button>
+      <button type="button" class="chip" data-chip="intern" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg><span data-i="c_intern">รับฝึกงาน/สหกิจ</span></button>
+      <button type="button" class="chip" data-chip="share" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><span data-i="c_share">เล่าประสบการณ์</span></button>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <div><span class="sl"><span class="pn"></span></span><span data-i="lg_pin">ศิษย์เก่าหรือนักศึกษา 1 คน</span></div>
+      <div><span class="sl"><span class="pn open"></span></span><span data-i="lg_open">เปิดรับสมัครงานหรือฝึกงาน</span></div>
+      <div><span class="sl"><span class="cl">3</span></span><span data-i="lg_cl">หลายคนในพื้นที่ใกล้กัน</span></div>
+      <div><span class="sl"><span class="hx"></span></span><span data-i="lg_home">มหาวิทยาลัยขอนแก่น</span></div>
+    </div>
+    <div class="fp-acts"><button type="button" class="tb" id="f-clear" data-i="clear_all">ล้างตัวกรอง</button><button type="button" class="tb red" id="f-done" data-i="done">เสร็จ</button></div>
+  </div>
+
+  <div class="empty" id="empty" hidden><p id="empty-t"></p><button type="button" class="tb red" id="empty-x" data-i="clear_all">ล้างตัวกรอง</button><button type="button" class="tb red" id="empty-pin" data-i="empty_pin" hidden>ปักหมุดคนแรก</button></div>
+
+  <div class="ov ov-bot" id="ov-bot">
+    <div class="battlebar">
+      <button type="button" class="bb-h" id="bb-toggle" aria-expanded="false" aria-controls="bb-list">
+        <svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><span class="bb-t">BATCH BATTLE</span><span class="bb-lead" id="bb-lead"></span><svg class="ic bb-chev" aria-hidden="true"><use href="#i-chev"/></svg>
+      </button>
+      <div class="bb-list" id="bb-list" hidden></div>
+    </div>
+    <div class="ctarow">
+      <button type="button" class="sqbtn big" id="share" aria-label="แชร์เรดาร์ให้เพื่อน" data-aria="share_a"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg></button>
+      <button type="button" class="cta" id="open-pin"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg><span data-i="cta">ปักหมุดพิกัดของคุณ</span><small data-i="cta_sub">(PIN NODE)</small></button>
+    </div>
+  </div>
+</section>
+<a class="peek" href="#brief"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg><span data-i="peek">ภารกิจของเรดาร์ และอันดับรุ่น</span></a>
+
+<section class="sec" id="brief" aria-labelledby="brief-h">
+  <p class="kick">// MISSION_BRIEF //</p>
+  <h2 id="brief-h" data-i="brief_h">เรดาร์นี้เชื่อมรุ่นพี่ รุ่นน้อง และอาจารย์</h2>
+  <p class="lead" data-i="brief_p"></p>
+  <ol class="objs">
+    <li class="obj"><span class="oid">OBJ-01</span><h3 data-i="o1_h">สานสัมพันธ์ทุกชั้นปี</h3><p data-i="o1_p"></p></li>
+    <li class="obj"><span class="oid">OBJ-02</span><h3 data-i="o2_h">แลกเปลี่ยนประสบการณ์</h3><p data-i="o2_p"></p></li>
+    <li class="obj"><span class="oid">OBJ-03</span><h3 data-i="o3_h">สร้างเครือข่ายวิชาชีพ</h3><p data-i="o3_p"></p></li>
+  </ol>
+  <ul class="hstats" aria-live="polite">
+    <li><span class="en">NODES</span><b id="s-nodes">0</b><span class="th" data-i="st_nodes">หมุดทั้งหมด</span></li>
+    <li><span class="en">BATCHES</span><b id="s-batches">0</b><span class="th" data-i="st_batches">รุ่น G ที่มีหมุด</span></li>
+    <li><span class="en">REGIONS</span><b id="s-regions">0</b><span class="th" data-i="st_regions">จังหวัด/เมือง</span></li>
+    <li><span class="en">HIRING</span><b id="s-hiring">0</b><span class="th" data-i="st_hiring">เปิดรับสมัครงาน</span></li>
+    <li><span class="en">INTERNS</span><b id="s-interns">0</b><span class="th" data-i="st_interns">รับฝึกงาน/สหกิจ</span></li>
+    <li><span class="en">MENTORS</span><b id="s-mentors">0</b><span class="th" data-i="st_mentors">ยินดีเล่าประสบการณ์</span></li>
+  </ul>
+  <p class="demo-note demo-only" data-i="demo_note"></p>
+</section>
+
+<section class="sec" id="battle" aria-labelledby="battle-h">
+  <p class="kick">// BATCH_BATTLE //</p>
+  <h2 id="battle-h" data-i="bt_h">รุ่นไหนส่งสัญญาณมากที่สุด</h2>
+  <p class="lead" data-i="bt_p"></p>
+  <ol class="ranks" id="ranks"></ol>
+  <div class="waiting" id="waiting"></div>
+  <div class="invite">
+    <div><h3 data-i="inv_h">ชวนเพื่อนรุ่นเดียวกันมาปักหมุด</h3><p data-i="inv_p"></p></div>
+    <label for="invite" class="sr" data-i="inv_l">ข้อความชวนเพื่อน</label>
+    <textarea id="invite" rows="3" readonly></textarea>
+    <button type="button" class="tb red" id="copy"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><span data-i="inv_b">คัดลอกข้อความ</span></button>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="foot">
+  <div class="foot-in">
+    <p class="mc">// SYS_FOOTER : GEOTECH_KKU //</p>
+    <p data-i="ft_a"></p>
+    <p data-i="ft_b"></p>
+    <p id="ft-links"></p>
+  </div>
+</footer>
+
+<div class="modal" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlg-t" hidden>
+  <div class="modal-back" id="dlg-back"></div>
+  <div class="modal-card">
+  <form id="pin-form" autocomplete="off" novalidate>
+    <div class="dlg-h">
+      <svg class="ic dlg-ic" aria-hidden="true"><use href="#i-radar"/></svg>
+      <div class="dlg-ht"><h2 id="dlg-t" data-i="fm_t">ปักหมุดพิกัดศิษย์เก่าเทคโนโลยีธรณี มข.</h2><p data-i="fm_sub"></p></div>
+      <button type="button" class="xbtn" id="dlg-x" aria-label="ปิด" data-aria="close"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dlg-b" id="dlg-b">
+      <p class="fm-demo demo-only" data-i="fm_demo"></p>
+      <fieldset>
+        <legend><span class="lg-code">01 // PUBLIC_NODE</span><span data-i="fm_s1">ข้อมูลบนแผนที่สาธารณะ</span></legend>
+        <div class="grid2">
+          <div class="f"><label for="p-nick"><span data-i="fm_nick">ชื่อเล่น</span> <i>*</i></label><input type="text" id="p-nick" maxlength="20" required></div>
+          <div class="f">
+            <label for="p-batch"><span data-i="fm_batch">รุ่น</span> <i>*</i></label>
+            <div class="gin" id="gin"><span aria-hidden="true">G</span><input type="text" id="p-batch" inputmode="numeric" maxlength="4" required aria-describedby="p-batch-h" data-ph="fm_batch_ph"></div>
+            <small id="p-batch-h" data-i="fm_batch_h"></small>
+            <label class="tick"><input type="checkbox" id="p-nog"><span data-i="fm_nog"></span></label>
+          </div>
+          <div class="f"><label for="p-level"><span data-i="fm_level">สถานะ</span> <i>*</i></label><select id="p-level" required></select></div>
+          <div class="f"><label for="p-career"><span data-i="fm_career">สายงาน</span> <i>*</i></label><select id="p-career" required></select></div>
+          <div class="f full">
+            <label for="p-place"><span data-i="fm_place">จังหวัดหรือเมือง</span> <i>*</i></label>
+            <select id="p-place" required></select>
+            <div class="mini" id="mini-el" role="application" aria-label="แผนที่เลือกตำแหน่ง" data-aria="mini_a"></div>
+            <div class="placebar"><button type="button" class="tb sm" id="gps"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg><span data-i="fm_gps">ใช้ตำแหน่งปัจจุบัน</span></button><span data-i="fm_coord">พิกัดที่จะแสดง</span> <output id="coords">-</output></div>
+            <small data-i="fm_drag"></small>
+            <small id="gps-msg" role="status"></small>
+          </div>
+          <div class="f full"><label for="p-msg" data-i="fm_msg">ข้อความถึงรุ่นน้อง</label><textarea id="p-msg" maxlength="140" aria-describedby="p-msg-h"></textarea><small id="p-msg-h" data-i="fm_msg_h"></small></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="lg-code">02 // OPEN_CHANNELS</span><span data-i="fm_s2">เปิดโอกาสให้รุ่นน้อง</span></legend>
+        <p class="note" data-i="fm_s2_note"></p>
+        <div class="opt" id="o-job">
+          <label><input type="checkbox" id="c-job"><svg class="ic oi" aria-hidden="true"><use href="#i-brief"/></svg><span><strong data-i="o_job">รับสมัครงาน</strong><span class="d" data-i="o_job_d"></span></span></label>
+          <div class="more" hidden>
+            <div class="f"><label for="j-role"><span data-i="j_role">ตำแหน่งที่เปิดรับ</span> <i>*</i></label><input type="text" id="j-role" maxlength="60"></div>
+            <div class="f"><label for="j-contact"><span data-i="j_contact">ช่องทางติดต่อ</span> <i>*</i></label><input type="text" id="j-contact" maxlength="80" data-ph="contact_ph"></div>
+          </div>
+        </div>
+        <div class="opt" id="o-intern">
+          <label><input type="checkbox" id="c-intern"><svg class="ic oi" aria-hidden="true"><use href="#i-cap"/></svg><span><strong data-i="o_intern">รับฝึกงาน/สหกิจ</strong><span class="d" data-i="o_intern_d"></span></span></label>
+          <div class="more" hidden>
+            <div class="f"><label for="i-role" data-i="i_role">ลักษณะงาน</label><input type="text" id="i-role" maxlength="60"></div>
+            <div class="f"><label for="i-contact"><span data-i="i_contact">ช่องทางติดต่อ</span> <i>*</i></label><input type="text" id="i-contact" maxlength="80" data-ph="contact_ph"></div>
+          </div>
+        </div>
+        <div class="opt" id="o-share">
+          <label><input type="checkbox" id="c-share"><svg class="ic oi" aria-hidden="true"><use href="#i-mic"/></svg><span><strong data-i="o_share">ยินดีเล่าประสบการณ์ให้รุ่นน้อง</strong><span class="d" data-i="o_share_d"></span></span></label>
+          <div class="more" hidden>
+            <div class="f"><span class="lab" data-i="sh_topics">หัวข้อที่เล่าได้</span>
+              <div class="checks"><label><input type="checkbox" name="topic" value="study" checked><span data-i="tp_study">การเรียน</span></label><label><input type="checkbox" name="topic" value="intern" checked><span data-i="tp_intern">การฝึกงาน/สหกิจ</span></label><label><input type="checkbox" name="topic" value="work" checked><span data-i="tp_work">การทำงาน</span></label></div>
+              <small class="err" id="topics-err" hidden></small>
+            </div>
+            <div class="f"><label for="s-contact" data-i="sh_contact">ช่องทางให้สาขาประสานงาน</label><input type="text" id="s-contact" maxlength="80" data-ph="contact_ph"></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="lg-code">03 // PRIVATE_REGISTRY</span><span data-i="fm_s3">เก็บไว้ที่สาขา</span></legend>
+        <div class="f"><label for="p-full"><span data-i="fm_full">ชื่อ-นามสกุล</span> <i>*</i></label><input type="text" id="p-full" maxlength="80" required aria-describedby="p-full-h"><small id="p-full-h" data-i="fm_full_h"></small></div>
+        <div class="f"><label class="consent"><input type="checkbox" id="p-consent" required><span data-i="fm_consent"></span></label></div>
+        <div class="hp" aria-hidden="true"><label for="p-web">Website</label><input type="text" id="p-web" tabindex="-1" autocomplete="off"></div>
+      </fieldset>
+    </div>
+    <div class="dlg-f"><p class="form-err" id="form-err" role="alert" hidden></p><button type="button" class="tb" id="dlg-cancel" data-i="fm_cancel">ยกเลิก</button><button type="button" class="tb red big" id="dlg-submit"><span id="submit-t" data-i="fm_submit">ส่งสัญญาณพิกัด</span><small id="submit-s" data-i="fm_submit_sub">(TRANSMIT)</small></button></div>
+  </form>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="data/basemap.js"></script>
+<script src="config.js?v=1"></script>
+<script src="assets/app.js?v=1"></script>
+</body>
+</html>
